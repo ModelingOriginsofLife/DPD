@@ -1,0 +1,164 @@
+# ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc #
+#                                                                     #
+#  dpd-simulation                                                     #
+#                                      BioMIP Ruhr-Univ. Bochum       #
+#                                      Protolife SRL                  #
+#                                                                     #
+#  (c) 2004                                             Thomas Maeke  #
+#  (c) 2006                                          Andrew Buchanan  #
+# ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc #
+
+2006/04/19
+  Release for PACE deliverable.  Cleaned up a lot of stuff and improved documentation.
+  SVN log now being used for main changelog storage.
+
+2006/02/15
+  Changed index_t to int (instead of short) to allow for large systems.
+
+2006/01/23
+  Fixed stat_intv = 0 problem that was causing crashes in Linux
+  Added "make install" functionality to install dpd3 in /usr/local/bin
+  Bonds are now always drawn as color of lowest type particle involved
+  changed dpd_file.c to allow tabs in input files
+  added simple A + B -> C + D X% of time chemistry
+
+2005/12/27
+  Added in old-style (distance based) bonding as a compile time option, see Makefile
+
+2005/12/12
+  Fixed bug in interaction between census and loading initial positions
+
+2005/11/10
+  Discovered and set aside problem with stat_intv, current best practice is to leave it set to 0
+  Fixed some typoes
+  Stopped printing reaction info to screen
+
+2005/11/04
+  New probabilistic bonding system, same keywords, current values work, but in general should be much lower.
+  Preliminary work on flag to load data immediately (instead of only when key pressed)
+  Updated loaddata function so that it does just that.
+
+2005/10/14
+  Changed default bond angle strength to 0
+  If poly_intv, reax_intv and save_intv are set to zero (default) then none  of the associated files will be created (vertices.out still will be)
+  Made census more accurate in dealing with partial polymers, polymere[kp].num lying, etc.  Now more reliable than whatever you see on screen (though perhaps not if particles get .outside
+  Fixed problem of biased bonding order by scrambling particles types.  I.e., particles 1-100 are no longer all the type 1's.  Instead it's all done randomly.  This messed up some particle placement stuff that depended on left particles being lower numbered.  That's fixed, but because it's tricky to find there may be more things like that under certain conditions.
+  The data dumping has also been adjusted so that save_intv will dump all the particle into to one file instead of one for each type.
+
+2005/09/28
+  Reordered some stat drops and fcdr_ calls to make statistics show initial configuration
+  Changed fix_constants to crap out instead of silently changing things
+  Particles still shooting occasionally
+
+2005/09/26
+  Raised max particle counts (MAX_TYP and MOLMOL)
+
+2005/09/23
+  Changed dyn bond format to allow for pairwise determination of bond forming &
+    break radii (as well as changing relevant code)
+  updated template.dat file -- try it!
+  Noted some quirkiness in which particles get shot off, not sure if due to new
+    bond forming/breaking stuff or stiff bonds, or combo
+
+2005/09/19
+  Added stiff bonds based on Anders Erikson's code.
+  Relevant control parameter is bond_angle_strength
+
+2005/08/30
+  Quick change for GL, some stiff bond still there
+  added dyn_bond_break which controls whether bonds between those two particle types
+  will break (see foo.dat for usage)
+
+2005/08/08
+  Snapshot for Natalio, some stiff bond code in place (dpd_stiff.[ch])
+
+2005/06/29
+  Added reaction information (.reax file) and reax_intv
+
+2005/06/09
+  Fixed savedata() call in dpd_3d.c so that save_intv means something
+
+2005/04/12
+  Changed Makefile to make switching between G5 and laptops easier
+
+2005/04/05
+  Fixed a bug in decrease_poly_pop which was leading to NULL branches.  Older runs may have messed up decreases in population.
+
+2005/03/17
+  Put in poly_intv which controls how often data is dumped to a .pout file.  Default is not at all.
+
+2005/02/16
+  Re-removed some #DEF Apple's and whatnot to make run in X11 without stealing the focus of the current window (this should really be changed to a build parameter)
+
+2005/2/4
+  Polymer population is now printed to file at end of run
+  setting no_dyn_loops = 1 in control file prevents dynamic bonding that would result in a loop, 0 allows
+  loops no longer hang the program -- but they're not counted correctly
+
+2005/1/24
+  Added structure to track polymer population dynamically, press space (or any key invoking print_info2() to see)
+  Warning: polymer looping is not currently checked for and can send program into endless loop.  Memory is not consumed very fast, but the program will hang indefinitely.  Avoid allowing loops to form.
+
+2004/12/1
+  Fixed pausing functionality
+  Made it easier to discover what the command-line options are
+
+2004/11/10
+  Fixed problem of unbonded particles sometimes bonding to the wrong side of singly bonded particles.
+  Changed bonding syntax to be less top-down:
+    dyn_bond 1 2 # allow bonds between particles of type 1 and particles of type 2
+    max_dynamic_polymer_length = 4 # do not allow any bonds which produce polymers of more than x particles
+  Still a memory leak, but crashing seems to have stopped.
+
+2004/11/08
+  Cleaned up bugs.  Stil problems: Bonds are not always visible and there are sometimes threading-related crashes as well as a slow memory leak.
+
+2004/11/05
+   Added ability for particles to form and lose bonds during the simulation
+dynamic_bond_forming_radius and dynamic_bond_breaking_radius control the distance at which bonds form/break
+dyn_chain controls which type of polymers can form
+
+Still very buggy at this point with particles sometimes forming too many bonds or not forming bonds when they should.  Has also been observed to start gobbling memory until a forced reboot is necessary so keep another term handy to kill the dpd3 process if it starts losing it.
+
+2004/10/26
+   for Apple users: threaded dpd now working natively in OSX
+
+2004/10/18
+
+   new: Minor changes so that control file name is displayed in window title
+
+   for Apple users: tested 3d slice view, works
+
+2004/09/29
+
+   new: (Ruedi) vesicle3D.dat
+
+   new: (Ruedi) minimal energy length for polymeres
+            spring_dist = 0.010     [ default=0.0]
+
+   new: create movies or snapshot sequences
+            snaps_intv = 20 100 300    <= step start end
+            snapshotfn = film/dpd_%06d.png
+        put al lot of files into directory 'film'
+
+   for Apple-Users:                                               
+       If you have the Linux 'convert' program you can enable the    
+       creation of movies in 'dpd_disp.c:snapshot()' which creates   
+       a snapshot every 
+           snaps_intv = step start end            
+       To create a mpeg: convert -delay 25 *.png movie.mpeg          
+       or for gif:       convert -delay 25 *.png movie.gif           
+
+   new: 2D-view for 3D run
+       with key '-' one can switch between normal view and 
+       'sliced' view. With keys 'up'- and 'down'-arrow walk through
+       z-dimension. With 'right'- and 'left'-arrow increase/decrease
+       thickness of slice.
+            slice_disp = min delta active
+       (not tested on Apple)
+
+   change:  brick = -1.0 -1.0 1.0 1.0  0 1
+       position a brick in simulation space (from -z to z)
+       at  x0,y0,x1,y1,enable_flag,at_init_flag
+       new: at_init_flag -> 1 = start with brick enabled,
+            no particles placed inside the brick.

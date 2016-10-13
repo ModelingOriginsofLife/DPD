@@ -1,0 +1,125 @@
+#initial_position_file = initial.out
+#initial_position_file = qux.out
+
+simple_chem 1 + 2 -> 1 + 3    0.02
+simple_chem 1 + 3 -> 1 + 2    0.01
+
+#                                   tmm 2004-07-21 AJB 2005-09-23
+# control file for dpd3
+# ---------------------
+#  # = comment line
+#  you can create this file with:
+#     dpd3 -tfilename
+#  or if you already have a control file just type in:
+#     dpd3 oldfile [other options] -tnewfile
+#  so your old file is up to date with all new features
+#  (but your comments are lost, and this may not work)
+#  or push 'v' while running dpd3 to create a template from actual parameters
+#
+sigma = 3.000                 # factor for dissipative and random force
+randfac = 1.73205             # factor for random force
+#rho = 25.000                  # particle density
+rho = 10.000                  # particle density
+dt = 0.0100                   # integration interval
+#
+displayintv = 1               # display interval
+#seed = 1131105962
+#seed = 1127483600             # random seed [time is not set]
+#
+size = 10                     # size of simulated system
+dim = 2                       # dimension [2|3] of system
+#
+geometry = 0                  # one of the predefined geometries
+                              #    0        normal (all)
+                              #    1        a rectangular hole from -z to z
+                              #    2        a H-structure
+                              #    3        bell-shape
+#
+slice_disp = 0.000  1.000   0 # sliced display for 3d viewing: min delta active [0|1]
+#
+max_step = 5001                # simulation steps
+stat_intv = 250                 # interval for displaying statistics
+save_intv = 250                 # interval for saving position & bond data (*.out)
+poly_intv = 250                 # interval for census (.pout) file
+reax_intv = 250                 # interval for reaction (.reax) file
+#
+snapshotfn = dpd_%06d.bmp       # filename for picture-snapshots (e.g. film/dpd_%06d.bmp)
+snaps_intv = 0 0 0  #  interval for automatic snapshots if >0, start,end
+#
+# beta[i,j] = interaction between different particle types 
+#
+#               /   1          beta    \
+#  Fc = alpha * | --------- - -------- |
+#               \ rij^exp12   rij^exp6 /
+#
+# if exp12==0 and exp6==-1 then
+#  Fc = alpha * (1 - beta * rij) = -alpha * beta * rij + alpha
+#
+#    i j   alpha   beta    exp12 exp6
+beta 1 1 =   3.000   1.000 0     -1    # Water -- Water
+beta 1 2 =   5.000   1.000 0     -1    # Water -- Oil  
+beta 1 3 =   3.000   1.000 0     -1    # Water -- Poly2
+beta 2 2 =   3.000   1.500 0     -1    # Oil   -- Oil  
+beta 2 3 =   3.000   1.000 0     -1    # Oil   -- Poly2
+beta 3 3 =   3.000   1.000 0     -1    # Poly2 -- Poly2
+beta_min = 0.000                       # minimal rij for Fc calculation
+beta_min_force = 0.100                 # Fc if rij<beta_min
+#
+# num_particle[i] = ratio of free particles of type i
+num_particle 0 =  0.00  # Poly 
+num_particle 1 = 60.00  # Water
+num_particle 2 = 20.00  # Oil  
+num_particle 3 = 20.00  # Poly2
+num_particle 4 =  0.00  # Poly3
+#
+# num_chains[i] = ratio of polymers of type i
+#   maximun polymer length 8
+#   maximun number of different polymers 8
+num_chain 0 = 0.00     3  2  3
+num_chain 1 = 0.00     3  2  3
+#
+# Bond parameters
+bond = 20.000                   # bonding force between chained monomers
+spring_dist = 0.010             # bond minimal energy length
+bond_angle_strength = 20.000    # stiff bond force
+dyn_loops = 0                   # whether loop polymers can form or not [1|0]
+max_dynamic_polymer_length = 3  # polymers will stop bonding at this length
+#
+# Dynamic bond parameters:
+# default is no dynamic bonding
+# values <= 0 mean bonds won't form/break
+#        i j   form at  break at
+dyn_bond 1 1 =     -1     -1
+dyn_bond 1 2 =     -1     -1
+dyn_bond 1 3 =     -1     -1
+# use below for probabilistic bonding
+#dyn_bond 2 2 =     0.01    0.1 # OIL -- OIL
+#dyn_bond 2 3 =     0.01    0.1 # OIL -- POLY
+#dyn_bond 3 3 =     0.01    0.1 # POLY --POLY
+#
+# use these for distance-based bonding
+#dyn_bond 2 2 =     0.1    0.75 # OIL -- OIL
+#dyn_bond 2 3 =     0.1    0.75 # OIL -- POLY
+#dyn_bond 3 3 =     0.1    0.4 # POLY --POLY
+#
+# impenetrable brick
+# from x0, y0 (low, left) to x1,y1 (up, right) and active-flag, at init
+brick = -1.000 -2.000 1.000  2.000   0 0
+#
+# between xmin, xmax with velocity, diffy and active-flag
+pressx = -10.100 -10.000 1.000  0.000   0
+#
+# color[i] = RGB-color of particle of type i
+color 0 = 240  240  240   # Poly 
+color 1 = 0    0    250   # Water
+color 2 = 250  0    0     # Oil  
+color 3 = 0    250  0     # Poly2
+color 4 = 0    250  250   # Poly3
+#
+# epsilon[i] = strength of e-field on particle of type i
+epsilon 0 = 1.000         # Poly 
+epsilon 1 = 0.000         # Water
+epsilon 2 = 0.000         # Oil  
+epsilon 3 = 1.000         # Poly2
+epsilon 4 = 0.000         # Poly3
+#

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   committed-rev="3"
+   name=""
+   committed-date="2006-04-18T14:30:51.551372Z"
+   url="svn+ssh://g5b/Users/buchanaa/dpd-svn/trunk/examples"
+   last-author="buchanaa"
+   kind="dir"
+   uuid="3bf3b03f-b511-0410-b202-c999a5033581"
+   revision="3"/>
+<entry
+   committed-rev="3"
+   name="E5h4hDimersMic.dat"
+   text-time="2006-04-18T14:32:49.000000Z"
+   committed-date="2006-04-18T14:30:51.551372Z"
+   checksum="030ea3284e3495daf6571457fdccbb78"
+   last-author="buchanaa"
+   kind="file"
+   prop-time="2006-04-18T14:32:49.000000Z"/>
+<entry
+   committed-rev="3"
+   name="example.dat"
+   text-time="2006-04-18T14:32:49.000000Z"
+   committed-date="2006-04-18T14:30:51.551372Z"
+   checksum="2b0681df804d38feb2657d7d11d7e7e2"
+   last-author="buchanaa"
+   kind="file"
+   prop-time="2006-04-18T14:32:49.000000Z"/>
+<entry
+   committed-rev="3"
+   name="ThreeTypeTrimers.dat"
+   text-time="2006-04-18T14:32:49.000000Z"
+   committed-date="2006-04-18T14:30:51.551372Z"
+   checksum="b576c879096c05c0dfa52ba9cf3d01e7"
+   last-author="buchanaa"
+   kind="file"
+   prop-time="2006-04-18T14:32:49.000000Z"/>
+<entry
+   committed-rev="3"
+   name="longtailbilayer.dat"
+   text-time="2006-04-18T14:32:49.000000Z"
+   committed-date="2006-04-18T14:30:51.551372Z"
+   checksum="51eaa933687767250b1695832cfc36cb"
+   last-author="buchanaa"
+   kind="file"
+   prop-time="2006-04-18T14:32:49.000000Z"/>
+<entry
+   committed-rev="3"
+   name="Readme.txt"
+   text-time="2006-04-18T14:32:49.000000Z"
+   committed-date="2006-04-18T14:30:51.551372Z"
+   checksum="11c0f9baa0b8d06f3ad1656a8939111f"
+   last-author="buchanaa"
+   kind="file"
+   prop-time="2006-04-18T14:32:49.000000Z"/>
+<entry
+   committed-rev="3"
+   name="simple_chem.dat"
+   text-time="2006-04-18T14:32:49.000000Z"
+   committed-date="2006-04-18T14:30:51.551372Z"
+   checksum="19bda0861c383b8b946a40b57cc9b4ea"
+   last-author="buchanaa"
+   kind="file"
+   prop-time="2006-04-18T14:32:49.000000Z"/>
+</wc-entries>
